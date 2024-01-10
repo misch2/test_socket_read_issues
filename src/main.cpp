@@ -64,21 +64,28 @@ void test2() {
   Serial.println("waiting 2 seconds");
   delay(2000);
   Serial.println("sequence 2:");
+
+  int err = 0;
   for (int i = 0; i <= 10; i++) {
     while (1) {
       c = httpClient.read();
       if (c == -1) {
-        if (httpClient.connected() && (errno == EINPROGRESS)) {
+        if (httpClient.connected()) {
           Serial.println("(no data read but there is data available, waiting)");
-          delay(100);
+          delay(300);
           continue;
         } else {
+          err = 1;
           Serial.println("got real error, errno=" + String(errno) +
                          ", connected=" + String(httpClient.connected()));
         }
       };
       break;
     };
+    if (err) {
+      break;
+    }
+
     Serial.println("[" + String(i) + "] read: " + c + " ('" + char(c) + "')");
   };
 
