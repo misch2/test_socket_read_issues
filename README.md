@@ -55,11 +55,11 @@ sequence 2:
 [2] read: 51 ('3')
 [3] read: 50 ('2')
 [4] read: 50 ('2')
-[5] read: -1 ('�')
-[6] read: -1 ('�')
-[7] read: -1 ('�')
-[8] read: -1 ('�')
-[9] read: -1 ('�')
-[10] read: -1 ('�')
+(no data read but there is data available, waiting)
+[5] read: 49 ('1')
+(no data read but there is data available, waiting)
+(no data read but there is data available, waiting)
+(no data read but there is data available, waiting)
+got real error, errno=128, connected=0
 Done
 ```
