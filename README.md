@@ -63,3 +63,7 @@ sequence 2:
 got real error, errno=128, connected=0
 Done
 ```
+
+## Disclaimer
+
+This is a PoC to demonstrate an issue with WiFiClient / HTTPClient in Arduino framework for ESP32, not an example how to handle the reads correctly! I'm pretty sure there exists a better way how to distinguish between a real error and EINPROGRESS state than checking the isconnected status etc.
