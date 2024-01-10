@@ -65,7 +65,20 @@ void test2() {
   delay(2000);
   Serial.println("sequence 2:");
   for (int i = 0; i <= 10; i++) {
-    c = httpClient.read();
+    while (1) {
+      c = httpClient.read();
+      if (c == -1) {
+        if (httpClient.connected() && (errno == EINPROGRESS)) {
+          Serial.println("(no data read but there is data available, waiting)");
+          delay(100);
+          continue;
+        } else {
+          Serial.println("got real error, errno=" + String(errno) +
+                         ", connected=" + String(httpClient.connected()));
+        }
+      };
+      break;
+    };
     Serial.println("[" + String(i) + "] read: " + c + " ('" + char(c) + "')");
   };
 
