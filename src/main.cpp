@@ -42,6 +42,8 @@ void test1() {
 }
 
 void test2() {
+  int c;
+
   httpClient.beginRequest();
   httpClient.get("/");
   httpClient.endRequest();
@@ -52,10 +54,19 @@ void test2() {
   httpClient.skipResponseHeaders();
 
   Serial.println("Reading 10 bytes sequentially");
-  int c;
+
+  Serial.println("sequence 1:");
   for (int i = 0; i <= 10; i++) {
     c = httpClient.read();
-    Serial.println("[" + String(i) + "] read: " + String(c));
+    Serial.println("[" + String(i) + "] read: " + c + " ('" + char(c) + "')");
+  };
+
+  Serial.println("waiting 2 seconds");
+  delay(2000);
+  Serial.println("sequence 2:");
+  for (int i = 0; i <= 10; i++) {
+    c = httpClient.read();
+    Serial.println("[" + String(i) + "] read: " + c + " ('" + char(c) + "')");
   };
 
   httpClient.stop();
