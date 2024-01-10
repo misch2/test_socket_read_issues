@@ -1,3 +1,12 @@
+# A PoC to verify issues with read() in ESP32 Arduino libraries
+
+Here's a simple webserver in Python which sends a short response but explicitly adds a 1 second delay between each part.
+This allows us to check how ESP32 client works with regards to `WiFiClient.read()` call. 
+
+I'm here trying to show that the `read()` call in `WiFiClient` is implemented using nonblocking reads and therefore if there's any delay in server providing the data then the read() returns -1 instead of waiting for the data. AFAIK this behaviour can't be switched off and has to be handled manually in the client code.
+
+The issue is there for multibyte `read(buffer, size)` variant too. In this case the read(...) sometimes returns less data then required, i.e. for `a=read(buf, 100)` it might return a==7 even when the server hasn't finished sending everything and even when subsequent read() calls would continue returning the response data.
+
 ## Steps
 
 ### Start the webserver
